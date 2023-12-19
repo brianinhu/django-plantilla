@@ -47,7 +47,10 @@ def f_create_article(request):
         if request.method == 'POST':
             title = request.POST['title']
             content = request.POST['content']
-            image = request.POST['image']
+            if 'image' in request.FILES:
+                image = request.FILES['image']
+            else:
+                image = None
             published_time = request.POST['published_time']
 
             article = Article(title=title, content=content,
@@ -75,7 +78,10 @@ def f_edit_article(request):
         article_id = request.POST['id']
         title = request.POST['title']
         content = request.POST['content']
-        image = request.POST['image']
+        if 'image' in request.FILES:
+            image = request.FILES['image']
+        else:
+            image = None
         published_time = request.POST['published_time']
 
         article = Article.objects.get(id=article_id)

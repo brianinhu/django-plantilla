@@ -6,11 +6,11 @@
 
 {% block content %}
   <h3 style="text-align: center;">Formulario para crear articulo</h3>
-  <form id="form" action="{% url 'f_create_article' %}" method="post">
+  <form id="form" action="{% url 'f_create_article' %}" method="post" enctype="multipart/form-data" >
     {% csrf_token %}
     <input type="text" name="title" placeholder="Escribe el titulo" required />
     <input type="text" name="content" placeholder="Escribe el contenido" required />
-    <input type="text" name="image" placeholder="Escribe la imagen" required />
+    <input type="file" name="image"/>
     <select required name="published_time">
       <option hidden>¿Está publicado?</option>
       <option value="1">Sí</option>

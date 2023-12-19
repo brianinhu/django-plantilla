@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
 from myapp import views
 
 urlpatterns = [
@@ -31,3 +32,7 @@ urlpatterns = [
     path('f_edit_article', views.f_edit_article, name='f_edit_article'),
     path('f_delete_article/<int:article_id>', views.f_delete_article, name='f_delete_article'),
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -70,7 +70,7 @@
   </head>
   <h3 style="text-align: center;">Editar articulo</h3>
   <div class="container">
-    <form action="{% url 'f_edit_article' %}" method="post">
+    <form action="{% url 'f_edit_article' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <input hidden type="text" name="id" value="{{ article.id }}" />
       <div>
@@ -82,8 +82,13 @@
         <textarea name="content" required>{{ article.content }}</textarea>
       </div>
       <div>
-        <label>Imagen</label>
-        <input type="text" name="image" value="{{ article.image }}" required />
+        <label for="image">Imagen actual</label>
+        {% if article.image %}
+          <img src="{{ article.image.url }}" alt="{{ article.title }}" /><br />
+        {% else %}
+          <p>No hay imagen</p>
+        {% endif %}
+        <input type="file" name="image" />
       </div>
       <div>
         <label for="public">Publicado</label>

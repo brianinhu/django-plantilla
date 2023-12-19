@@ -56,7 +56,13 @@
         <td>{{ article.id }}</td>
         <td>{{ article.title }}</td>
         <td>{{ article.content }}</td>
-        <td>{{ article.image }}</td>
+        <td>
+          {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" width="100px" height="100px" />
+          {% else %}
+            No image
+          {% endif %}
+        </td>
         <td>
           {% if article.published_time == 1 %}
             Publicado
@@ -80,8 +86,11 @@
 
   <script>
     setTimeout(() => {
-      document.getElementById('success-message').style.display = 'none';
-      document.getElementById('error-message').style.display = 'none';
-    }, 3000);
+      document.getElementById('error-message').style.display = 'none'
+    }, 5000);
+
+    setTimeout(() => {
+      document.getElementById('success-message').style.display = 'none'
+    }, 5000);
   </script>
 {% endblock %}
