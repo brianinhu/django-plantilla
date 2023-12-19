@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  {% if variable %}
+    <p>Variable: {{ variable }}</p>
+  {% else %}
+    <p>Variable is not set</p>
+  {% endif %}
+
+  {% for i in range_numbers %}
+    <p>{{ i }}</p>
+
+    {% empty %}
+    <p>Range is empty</p>
+  {% endfor %}
+{% endblock %}

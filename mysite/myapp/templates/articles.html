@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <head>
+    <style>
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      
+      #success-message {
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 10px;
+        background-color: green;
+        padding: 1rem;
+      }
+      
+      #error-message {
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 10px;
+        background-color: red;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <p id="success-message">{{ message }}</p>
+      {% else %}
+        <p id="error-message">{{ message }}</p>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  <h3 style="text-align: center;">Lista de artículos</h3>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Título</th>
+      <th>Contenido</th>
+      <th>Imagen</th>
+      <th>Estado</th>
+      <th colspan="2">Acciones</th>
+    </tr>
+    {% for article in articles %}
+      <tr>
+        <td>{{ article.id }}</td>
+        <td>{{ article.title }}</td>
+        <td>{{ article.content }}</td>
+        <td>{{ article.image }}</td>
+        <td>
+          {% if article.published_time == 1 %}
+            Publicado
+          {% else %}
+            En revisión
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'v_edit_article' article_id=article.id %}">Editar</a>
+        </td>
+        <td>
+          <a href="{% url 'f_delete_article' article_id=article.id %}">Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td style="text-align: center;" colspan="6">data unavailable</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('success-message').style.display = 'none';
+      document.getElementById('error-message').style.display = 'none';
+    }, 3000);
+  </script>
+{% endblock %}
