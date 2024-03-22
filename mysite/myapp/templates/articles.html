@@ -34,9 +34,9 @@
   {% if messages %}
     {% for message in messages %}
       {% if message.tags == 'success' %}
-        <p id="success-message">{{ message }}</p>
+        <p class="message" id="success-message">{{ message }}</p>
       {% else %}
-        <p id="error-message">{{ message }}</p>
+        <p class="message" id="error-message">{{ message }}</p>
       {% endif %}
     {% endfor %}
   {% endif %}
@@ -56,12 +56,8 @@
         <td>{{ article.id }}</td>
         <td>{{ article.title }}</td>
         <td>{{ article.content }}</td>
-        <td>
-          {% if article.image %}
-            <img src="{{ article.image.url }}" alt="{{ article.title }}" width="100px" height="100px" />
-          {% else %}
-            No image
-          {% endif %}
+        <td style="text-align: center;">
+          <img src="{{ article.image.url }}" alt="{{ article.title }}" width="100px" height="100px" />
         </td>
         <td>
           {% if article.published_time == 1 %}
@@ -79,18 +75,17 @@
       </tr>
       {% empty %}
       <tr>
-        <td style="text-align: center;" colspan="6">data unavailable</td>
+        <td style="text-align: center;" colspan="6">No data in this table</td>
       </tr>
     {% endfor %}
   </table>
 
   <script>
     setTimeout(() => {
-      document.getElementById('error-message').style.display = 'none'
-    }, 5000);
-
-    setTimeout(() => {
-      document.getElementById('success-message').style.display = 'none'
-    }, 5000);
+      let messages = document.getElementsByClassName('message')
+      for (let i = 0; i < messages.length; i++) {
+        messages[i].style.display = 'none'
+      }
+    }, 5000)
   </script>
 {% endblock %}

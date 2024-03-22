@@ -5,15 +5,9 @@ from myapp.models import Article, Category
 
 
 def index(request):
-    start = 10
-    end = 20
-    range_numbers = range(start, end+1)
     return render(request, 'index.html',
                   {'title': 'Home',
-                   'variable': 'This is a variable for index.html',
-                   'start': 10,
-                   'end': 20,
-                   'range_numbers': range_numbers})
+                   'variable': 'This is a variable for index.html'})
 
 
 def about(request):
@@ -21,7 +15,7 @@ def about(request):
     return render(request, 'about.html',
                   {'title': 'About',
                    'variable': 'This is a variable for about.html',
-                   'team': None})
+                   'team': team})
 
 
 def contact(request):
@@ -50,7 +44,7 @@ def f_create_article(request):
             if 'image' in request.FILES:
                 image = request.FILES['image']
             else:
-                image = None
+                image = 'articles/default.jpg' # default image >:c
             published_time = request.POST['published_time']
 
             article = Article(title=title, content=content,
@@ -78,10 +72,11 @@ def f_edit_article(request):
         article_id = request.POST['id']
         title = request.POST['title']
         content = request.POST['content']
+        article = Article.objects.get(id=article_id)
         if 'image' in request.FILES:
             image = request.FILES['image']
         else:
-            image = None
+            image = article.image
         published_time = request.POST['published_time']
 
         article = Article.objects.get(id=article_id)

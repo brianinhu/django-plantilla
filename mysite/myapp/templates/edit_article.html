@@ -75,24 +75,23 @@
       <input hidden type="text" name="id" value="{{ article.id }}" />
       <div>
         <label for="title">Titulo</label>
-        <input type="text" name="title" value="{{ article.title }}" required />
+        <input type="text" id="title" name="title" value="{{ article.title }}" required />
       </div>
       <div>
         <label for="content">Contenido</label>
-        <textarea name="content" required>{{ article.content }}</textarea>
+        <textarea id="content" name="content" rows="5" required>{{ article.content }}</textarea>
       </div>
       <div>
-        <label for="image">Imagen actual</label>
+        <label for="imageInput">Imagen actual</label>
         {% if article.image %}
-          <img src="{{ article.image.url }}" alt="{{ article.title }}" /><br />
-        {% else %}
-          <p>No hay imagen</p>
+          <img id="preview" src="{{ article.image.url }}" alt="{{ article.title }}" width="200px" /><br />
         {% endif %}
-        <input type="file" name="image" />
+        <input id="imageInput" type="file" name="image" onchange="previewImage(event)" />
+        <button type="button" onclick="removeImage()">Eliminar imagen</button>
       </div>
       <div>
         <label for="public">Publicado</label>
-        <select required name="published_time">
+        <select required id="public" name="published_time">
           {% if article.published_time == 1 %}
             <option value="1">Sí</option>
             <option value="0">No</option>
@@ -107,4 +106,16 @@
       </div>
     </form>
   </div>
+  <script>
+    function previewImage(event) {
+      var input = event.target
+      if (input.files && input.files[0]) {
+        var reader = new FileReader()
+        reader.onload = function (e) {
+          document.getElementById('preview').src = e.target.result
+        }
+        reader.readAsDataURL(input.files[0])
+      }
+    }
+  </script>
 {% endblock %}
