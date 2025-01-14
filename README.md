@@ -1,4 +1,19 @@
-# Plantilla de Django
+# Django Template
 
-## Introducción
-Este repositorio es una aplicación creada con el lenguaje Python y el framework Django. En ella se usan muchos conceptos iniciales para poder crear una aplicación básica funcional en Django.
+## Introduction
+
+This repository is a template application created with the Python language and the Django framework.
+
+## Installation
+
+```bash
+pip install django
+```
+
+```bash
+cd /mysite
+```
+
+```bash
+py manage.py runserver
+```
