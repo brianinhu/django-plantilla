@@ -72,11 +72,15 @@ def f_edit_article(request):
         article_id = request.POST['id']
         title = request.POST['title']
         content = request.POST['content']
+        image_flag = request.POST['image_flag']
         article = Article.objects.get(id=article_id)
         if 'image' in request.FILES:
             image = request.FILES['image']
         else:
-            image = article.image
+            if image_flag == '0':
+                image = article.image
+            else:
+                image = 'articles/default.jpg'
         published_time = request.POST['published_time']
 
         article = Article.objects.get(id=article_id)
