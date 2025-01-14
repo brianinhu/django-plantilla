@@ -11,7 +11,7 @@ pip install django
 ```
 
 ```bash
-cd /mysite
+cd mysite/
 ```
 
 ```bash
